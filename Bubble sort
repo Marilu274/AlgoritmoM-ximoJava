@@ -1,0 +1,61 @@
+public class BubbleSortOptimizado {
+
+    // Método de ordenamiento Bubble Sort optimizado
+    public static void bubbleSortOptimizado(int[] arreglo) {
+        int n = arreglo.length;
+        int ultimoIntercambio;
+        
+        do {
+            ultimoIntercambio = 0;
+            
+            for (int i = 1; i < n; i++) {
+                if (arreglo[i - 1] > arreglo[i]) {
+                    // Intercambio
+                    int temp = arreglo[i - 1];
+                    arreglo[i - 1] = arreglo[i];
+                    arreglo[i] = temp;
+                    
+                    // Guardamos posición del último intercambio
+                    ultimoIntercambio = i;
+                }
+            }
+            
+            n = ultimoIntercambio;
+            
+        } while (n > 0);
+    }
+
+    // Método para generar arreglo aleatorio
+    public static int[] generarArreglo(int tamaño) {
+        Random rand = new Random();
+        int[] arreglo = new int[tamaño];
+        
+        for (int i = 0; i < tamaño; i++) {
+            arreglo[i] = rand.nextInt(10000);
+        }
+        
+        return arreglo;
+    }
+
+    // Método para medir tiempo de ejecución
+    public static long medirTiempo(int tamaño) {
+        int[] arreglo = generarArreglo(tamaño);
+        
+        long inicio = System.nanoTime();
+        bubbleSortOptimizado(arreglo);
+        long fin = System.nanoTime();
+        
+        return fin - inicio;
+    }
+
+    public static void main(String[] args) {
+        int[] tamaños = {1000, 2000, 3000, 4000, 5000};
+        
+        System.out.println("Tamaño\tTiempo (ns)");
+        
+        for (int tamaño : tamaños) {
+            long tiempo = medirTiempo(tamaño);
+            System.out.println(tamaño + "\t" + tiempo);
+        }
+    }
+}
